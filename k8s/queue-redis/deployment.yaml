@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: queue-redis
+  namespace: queue-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queue-redis
+  template:
+    metadata:
+      labels:
+        app: queue-redis
+    spec:
+      volumes:
+      containers:
+        - name: redis
+          image: redis:7.0.8
+          command: ['redis-server']
+          ports:
+            - containerPort: 6379

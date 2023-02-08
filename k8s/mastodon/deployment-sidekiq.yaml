@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mastodon-sidekiq
+  namespace: mastodon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mastodon-sidekiq
+  template:
+    metadata:
+      labels:
+        app: mastodon-sidekiq
+    spec:
+      containers:
+        - name: mastodon-sidekiq
+          args:
+            - bundle
+            - exec
+            - sidekiq
+            - -c
+            - "15"
+          image: tootsuite/mastodon:v4.0.2
+          envFrom:
+            - configMapRef:
+                name: mastodon
+

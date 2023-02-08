@@ -1,0 +1,13 @@
+buckets:
+  - name: mastodon
+    policy: none
+    purge: false
+persistence:
+  size: 200Gi
+rootUser: minio
+rootPassword: minio123
+mode: standalone
+replicas: 1
+resources:
+  requests:
+    memory: 512Mi

@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migrate
+  namespace: mastodon
+spec:
+  template:
+    metadata:
+      labels:
+        app: db-migrate
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: mastodon
+          args:
+            - bash
+            - -c
+            - bundle exec rake db:migrate
+          image: tootsuite/mastodon:v4.0.2
+          envFrom:
+            - configMapRef:
+                name: mastodon
+

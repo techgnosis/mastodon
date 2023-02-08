@@ -1,0 +1,37 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mastodon
+  namespace: mastodon
+data:
+  LOCAL_DOMAIN: madeinusa.social
+  LIMITED_FEDERATION_MODE: "true"
+  DEFAULT_LOCALE: en
+  RAILS_ENV: production
+  BIND: "0.0.0.0"
+  DB_HOST: #@ data.values.db_host
+  DB_USER: #@ data.values.db_user
+  DB_NAME: #@ data.values.db_name
+  DB_PASS: #@ data.values.db_pass
+  DB_POOL: "15" #! should match the number of sidekiq threads
+  DB_SSLMODE: disable
+  ES_ENABLED: "false"
+  REDIS_HOST: #@ data.values.redis_host
+  CACHE_REDIS_HOST: #@ data.values.cache_redis_host
+  OTP_SECRET: #@ data.values.otp_secret
+  SECRET_KEY_BASE: #@ data.values.secret_key_base
+  VAPID_PRIVATE_KEY: #@ data.values.vapid_private_key
+  VAPID_PUBLIC_KEY: #@ data.values.vapid_public_key
+  S3_ENABLED: "false"
+  S3_BUCKET: #@ data.values.s3_bucket
+  AWS_ACCESS_KEY_ID: #@ data.values.access_key
+  AWS_SECRET_ACCESS_KEY: #@ data.values.secret_access_key
+  S3_ENDPOINT: #@ data.values.s3_endpoint
+  SMTP_SERVER: #@ data.values.smtp_server
+  SMTP_PORT: "587"
+  SMTP_FROM_ADDRESS: #@ data.values.smtp_from_address
+  SMTP_LOGIN: #@ data.values.smtp_login
+  SMTP_PASSWORD: #@ data.values.smtp_password
+  SMTP_TLS: "1"

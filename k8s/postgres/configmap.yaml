@@ -1,0 +1,11 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres
+  namespace: postgres
+data:
+  POSTGRES_DB: #@ data.values.db_name
+  POSTGRES_USER: #@ data.values.db_user
+  POSTGRES_PASSWORD: #@ data.values.db_pass

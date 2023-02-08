@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mastodon-streaming
+  namespace: mastodon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mastodon-streaming
+  template:
+    metadata:
+      labels:
+        app: mastodon-streaming
+    spec:
+      containers:
+        - name: mastodon
+          args:
+            - node
+            - ./streaming
+          image: tootsuite/mastodon:v4.0.2
+          ports:
+            - containerPort: 4000
+          envFrom:
+            - configMapRef:
+                name: mastodon

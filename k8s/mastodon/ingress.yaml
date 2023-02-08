@@ -1,0 +1,43 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mastodon-web
+  namespace: mastodon
+spec:
+  tls:
+  - hosts:
+      - madeinusa.social
+    secretName: mastodon-tls
+  rules:
+  - host: madeinusa.social
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mastodon-web
+            port:
+              number: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mastodon-streaming
+  namespace: mastodon
+spec:
+  tls:
+  - hosts:
+      - madeinusa.social
+    secretName: mastodon-tls
+  rules:
+  - host: madeinusa.social
+    http:
+      paths:
+      - path: /api/v1/streaming
+        pathType: Exact
+        backend:
+          service:
+            name: mastodon-streaming
+            port:
+              number: 4000
